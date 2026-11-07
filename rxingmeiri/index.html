@@ -1,0 +1,1329 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>r星每日大赛聚集地-每日挑战与竞速_赛事资讯与玩法解析</title>
+    <meta name="description" content="r星每日大赛聚集地，聚焦每日挑战、竞速赛与社区赛事。提供最新赛程、玩法解析、热门挑战推荐与玩家讨论，适合关注每日大赛的竞速与挑战爱好者收藏浏览。">
+    <meta name="keywords" content="r星每日大赛聚集地,每日挑战,竞速赛事,社区大赛,r星赛事资讯">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230d9488'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%23ffffff' font-family='Arial'%3ER%3C/text%3E%3C/svg%3E">
+    <style>
+        :root {
+            --bg: #f5f9fa;
+            --surface: #ffffff;
+            --primary: #0d9488;
+            --primary-dark: #0f766e;
+            --primary-light: #ccfbf1;
+            --text-main: #1e293b;
+            --text-muted: #5b6e7e;
+            --border: #e2e8f0;
+            --shadow: 0 8px 24px rgba(0, 40, 40, 0.06);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 导航 */
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+            gap: 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+            flex-shrink: 0;
+        }
+
+        .logo-badge {
+            background: var(--primary);
+            color: #fff;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            box-shadow: 0 6px 12px rgba(13, 148, 136, 0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 999px;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        .search-sm {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 0 6px 0 16px;
+            height: 42px;
+            width: 240px;
+            transition: border 0.2s, box-shadow 0.2s;
+        }
+
+        .search-sm:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+        }
+
+        .search-sm input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 0.9rem;
+            width: 100%;
+            color: var(--text-main);
+        }
+
+        .search-sm button {
+            background: var(--primary);
+            border: none;
+            color: #fff;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .search-sm button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Banner */
+        .hero {
+            background: linear-gradient(145deg, #f0fdfa 0%, #e6f7f5 40%, #d5f5ef 100%);
+            border-radius: 0 0 40px 40px;
+            padding: 48px 0 56px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            right: -80px;
+            top: -80px;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(13, 148, 136, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text {
+            flex: 1 1 500px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 999px;
+            letter-spacing: 0.3px;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: #0b2e2a;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+            background: linear-gradient(120deg, var(--primary) 0%, #14b8a6 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #2c4a46;
+            max-width: 560px;
+            margin-bottom: 28px;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.25s;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(13, 148, 136, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(13, 148, 136, 0.35);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-dark);
+            border-color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .hero-tag {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(13, 148, 136, 0.2);
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .hero-tag:hover {
+            background: #fff;
+            border-color: var(--primary);
+        }
+
+        .hero-visual {
+            flex: 1 1 300px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-card-stack {
+            position: relative;
+            width: 280px;
+            height: 180px;
+        }
+
+        .hero-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #0d9488, #0f766e);
+            box-shadow: 0 24px 40px -12px rgba(13, 148, 136, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            color: #fff;
+            transition: transform 0.3s;
+        }
+
+        .hero-card:nth-child(2) {
+            transform: rotate(8deg) translate(20px, 10px);
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        .hero-card:nth-child(3) {
+            transform: rotate(-6deg) translate(-20px, -10px);
+            background: linear-gradient(135deg, #2dd4bf, #14b8a6);
+            opacity: 0.4;
+            z-index: -2;
+        }
+
+        .hero-card .mini-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .hero-card .big-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-top: 10px;
+        }
+
+        .hero-card .meta {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* 通用 section */
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #0b2e2a;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 48px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .section-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .section-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 分类入口 */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 16px;
+        }
+
+        .category-item {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 20px 12px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all 0.25s;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 16px 28px -8px rgba(13, 148, 136, 0.2);
+        }
+
+        .category-icon {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        /* 卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .event-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .event-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -8px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary-light);
+        }
+
+        .event-tag {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 999px;
+            letter-spacing: 0.3px;
+            width: fit-content;
+        }
+
+        .event-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0b2e2a;
+            line-height: 1.3;
+        }
+
+        .event-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .event-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+            font-size: 0.78rem;
+            color: #5b6e7e;
+            margin-top: auto;
+            padding-top: 8px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .event-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* 最新更新列表 */
+        .update-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .update-item {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s;
+        }
+
+        .update-item:hover {
+            border-color: var(--primary-light);
+            background: #fafffe;
+        }
+
+        .update-info {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .update-name {
+            font-weight: 700;
+            color: #0b2e2a;
+            font-size: 1rem;
+        }
+
+        .update-badge {
+            background: #e6f7f5;
+            color: var(--primary-dark);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 999px;
+        }
+
+        .update-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .update-time {
+            font-size: 0.8rem;
+            color: #8899a6;
+            white-space: nowrap;
+        }
+
+        /* 深度解析 */
+        .deep-dive {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 32px 36px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .deep-dive h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0b2e2a;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .deep-dive h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            bottom: 6px;
+            width: 6px;
+            background: var(--primary);
+            border-radius: 6px;
+        }
+
+        .deep-dive p {
+            margin-bottom: 16px;
+            color: #2c3e4a;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .deep-dive strong {
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        /* FAQ 手风琴 */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .faq-question {
+            padding: 18px 24px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #0b2e2a;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            background: #fff;
+            transition: background 0.2s;
+        }
+
+        .faq-question::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-question::after {
+            content: '＋';
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 400;
+            transition: transform 0.2s;
+        }
+
+        details[open] .faq-question::after {
+            content: '－';
+        }
+
+        .faq-answer {
+            padding: 0 24px 20px 24px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            border-top: 1px solid var(--border);
+            margin-top: 0;
+            padding-top: 16px;
+        }
+
+        /* 评论 */
+        .comment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .comment-card {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s;
+        }
+
+        .comment-card:hover {
+            border-color: var(--primary-light);
+        }
+
+        .comment-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0d9488, #2dd4bf);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .nickname {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #0b2e2a;
+        }
+
+        .comment-time {
+            font-size: 0.7rem;
+            color: #99aabb;
+            margin-left: auto;
+        }
+
+        .comment-text {
+            font-size: 0.9rem;
+            color: #3e5464;
+            line-height: 1.6;
+        }
+
+        /* 资讯 */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .news-card {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .news-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-light);
+        }
+
+        .news-date {
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .news-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #0b2e2a;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .news-summary {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: #0b2e2a;
+            color: #b0cdc8;
+            padding: 40px 0 24px;
+            border-radius: 40px 40px 0 0;
+            margin-top: 32px;
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: #8bb5ae;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col a {
+            color: #8bb5ae;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #1e4a44;
+            padding-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: 0.8rem;
+            color: #6a9a92;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-inner {
+                height: auto;
+                padding: 12px 0;
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 8px;
+            }
+
+            .search-sm {
+                width: 160px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero {
+                padding: 32px 0 40px;
+            }
+
+            .hero-content {
+                gap: 24px;
+            }
+
+            .deep-dive {
+                padding: 24px 20px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .footer-links {
+                gap: 24px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+
+            .hero-card-stack {
+                width: 220px;
+                height: 140px;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="container nav-inner">
+            <a href="/#home" class="logo" style="text-decoration:none;">
+                <span class="logo-badge">R</span>
+                <span>r星每日大赛聚集地</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/#daily-challenge">每日挑战</a></li>
+                <li><a href="/#racing-events">竞速赛事</a></li>
+                <li><a href="/#community">社区大赛</a></li>
+                <li><a href="/#ranking">排行榜</a></li>
+                <li><a href="/#guide">玩法指南</a></li>
+            </ul>
+            <div class="search-sm">
+                <input type="text" placeholder="搜索挑战 / 赛事..." aria-label="搜索">
+                <button aria-label="搜索">🔍</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 首屏 Banner -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <span class="hero-badge">🔥 每日更新 · 聚集地</span>
+                <h1>r星每日大赛聚集地<br><span>每日挑战 · 竞速对决</span></h1>
+                <p>这里汇集了r星每日大赛的最新赛程、挑战攻略与玩家实况。无论你是竞速老手还是刚入门的挑战爱好者，都能在聚集地找到当天可参与的热门赛事、实用路线推荐和社区讨论。</p>
+                <div class="hero-actions">
+                    <a href="/#daily-challenge" class="btn btn-primary">查看今日挑战 →</a>
+                    <a href="/#guide" class="btn btn-outline">新手入门指南</a>
+                </div>
+                <div class="hero-tags">
+                    <a href="/#daily-challenge" class="hero-tag"># 每日竞速</a>
+                    <a href="/#racing-events" class="hero-tag"># 极限挑战</a>
+                    <a href="/#community" class="hero-tag"># 社区大赛</a>
+                    <a href="/#ranking" class="hero-tag"># 排行榜</a>
+                    <a href="/#guide" class="hero-tag"># 路线攻略</a>
+                    <a href="/#faq" class="hero-tag"># 常见问题</a>
+                    <a href="/#news" class="hero-tag"># 赛事资讯</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card-stack">
+                    <div class="hero-card">
+                        <span class="mini-tag">今日精选</span>
+                        <div class="big-text">洛圣都环城竞速</div>
+                        <div class="meta">剩余 2h 34m · 892 人参与</div>
+                    </div>
+                    <div class="hero-card"></div>
+                    <div class="hero-card"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- 快捷分类入口 -->
+        <section class="section" id="category">
+            <div class="section-header">
+                <h2 class="section-title">赛事分类入口</h2>
+                <a href="/#daily-challenge" class="section-link">全部赛事 →</a>
+            </div>
+            <div class="category-grid">
+                <a href="/#daily-challenge" class="category-item"><span class="category-icon">🏁</span> 每日竞速</a>
+                <a href="/#daily-challenge" class="category-item"><span class="category-icon">⏱️</span> 限时挑战</a>
+                <a href="/#racing-events" class="category-item"><span class="category-icon">🚗</span> 载具对决</a>
+                <a href="/#racing-events" class="category-item"><span class="category-icon">🎯</span> 精准射击</a>
+                <a href="/#community" class="category-item"><span class="category-icon">👥</span> 社区大赛</a>
+                <a href="/#ranking" class="category-item"><span class="category-icon">🏆</span> 排行榜</a>
+                <a href="/#guide" class="category-item"><span class="category-icon">🗺️</span> 路线攻略</a>
+                <a href="/#guide" class="category-item"><span class="category-icon">⚙️</span> 载具调校</a>
+            </div>
+        </section>
+
+        <!-- 热门内容推荐 -->
+        <section class="section" id="daily-challenge">
+            <div class="section-header">
+                <h2 class="section-title">热门挑战推荐</h2>
+                <a href="/#daily-challenge" class="section-link">更多热门 →</a>
+            </div>
+            <div class="card-grid">
+                <div class="event-card">
+                    <span class="event-tag">竞速 · 今日</span>
+                    <div class="event-title">洛圣都环城高速赛</div>
+                    <div class="event-desc">全长 12.4 公里，包含三个高速弯与一段越野捷径。推荐使用改装跑车，注意中段隧道后的急弯。</div>
+                    <div class="event-meta"><span>🔥 热度 2.4w</span><span>⏳ 剩余 2h 34m</span><span>⭐ 4.8</span></div>
+                </div>
+                <div class="event-card">
+                    <span class="event-tag">挑战 · 热门</span>
+                    <div class="event-title">沙滩机场特技竞速</div>
+                    <div class="event-desc">飞机与越野车混合赛道，需要快速切换载具。特技点奖励丰厚，适合喜欢空中与地面结合的玩家。</div>
+                    <div class="event-meta"><span>🔥 热度 1.9w</span><span>⏳ 剩余 4h 12m</span><span>⭐ 4.6</span></div>
+                </div>
+                <div class="event-card">
+                    <span class="event-tag">社区 · 精选</span>
+                    <div class="event-title">社区自制·山道之王</div>
+                    <div class="event-desc">玩家自制的山道爬坡赛，弯道密集，对刹车点和油门控制要求很高。每晚八点开赛，前 10 名有额外奖励。</div>
+                    <div class="event-meta"><span>🔥 热度 1.2w</span><span>⏳ 每日 20:00</span><span>⭐ 4.9</span></div>
+                </div>
+                <div class="event-card">
+                    <span class="event-tag">竞速 · 载具</span>
+                    <div class="event-title">摩托越野挑战赛</div>
+                    <div class="event-desc">纯摩托车越野赛道，跳跃点较多。推荐使用高扭矩越野摩托，空中姿态控制是关键得分点。</div>
+                    <div class="event-meta"><span>🔥 热度 9800</span><span>⏳ 剩余 5h 50m</span><span>⭐ 4.5</span></div>
+                </div>
+                <div class="event-card">
+                    <span class="event-tag">挑战 · 限时</span>
+                    <div class="event-title">精准射击竞速</div>
+                    <div class="event-desc">驾驶与射击结合的限时挑战，路线中设有多个靶点。建议优先升级精准度，减少停车瞄准时间。</div>
+                    <div class="event-meta"><span>🔥 热度 8600</span><span>⏳ 剩余 1h 20m</span><span>⭐ 4.3</span></div>
+                </div>
+                <div class="event-card">
+                    <span class="event-tag">社区 · 人气</span>
+                    <div class="event-title">午夜街头竞速</div>
+                    <div class="event-desc">夜间城市赛道，车流较多。推荐使用操控灵活的跑车，利用氮气在直道拉开差距。社区讨论热度很高。</div>
+                    <div class="event-meta"><span>🔥 热度 1.5w</span><span>⏳ 每日 23:00</span><span>⭐ 4.7</span></div>
+                </div>
+                <div class="event-card">
+                    <span class="event-tag">竞速 · 经典</span>
+                    <div class="event-title">沙漠越野拉力</div>
+                    <div class="event-desc">长距离沙漠赛道，考验载具耐久与路线选择。建议携带维修工具，避开松软沙地路段。</div>
+                    <div class="event-meta"><span>🔥 热度 7200</span><span>⏳ 剩余 8h</span><span>⭐ 4.4</span></div>
+                </div>
+                <div class="event-card">
+                    <span class="event-tag">挑战 · 趣味</span>
+                    <div class="event-title">特技跳台大乱斗</div>
+                    <div class="event-desc">以特技跳跃为主的娱乐挑战，动作难度越高得分越多。适合放松练习，也是社区分享的热门素材。</div>
+                    <div class="event-meta"><span>🔥 热度 6400</span><span>⏳ 剩余 6h 30m</span><span>⭐ 4.2</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 最新更新 -->
+        <section class="section" id="latest">
+            <div class="section-header">
+                <h2 class="section-title">最新更新动态</h2>
+                <span class="section-link" style="color:var(--text-muted);font-size:0.85rem;">2026年11月7日 更新</span>
+            </div>
+            <div class="update-list">
+                <div class="update-item">
+                    <div class="update-info">
+                        <span class="update-name">洛圣都环城高速赛</span>
+                        <span class="update-badge">新赛道</span>
+                        <span class="update-desc">今日新增反向路线，难度提升，奖励翻倍</span>
+                    </div>
+                    <span class="update-time">10 分钟前</span>
+                </div>
+                <div class="update-item">
+                    <div class="update-info">
+                        <span class="update-name">沙滩机场特技竞速</span>
+                        <span class="update-badge">倒计时</span>
+                        <span class="update-desc">距离结束还有 4 小时，当前最快圈速 2:18.4</span>
+                    </div>
+                    <span class="update-time">32 分钟前</span>
+                </div>
+                <div class="update-item">
+                    <div class="update-info">
+                        <span class="update-name">社区自制·山道之王</span>
+                        <span class="update-badge">报名中</span>
+                        <span class="update-desc">今晚 20:00 开赛，已有 64 名玩家报名</span>
+                    </div>
+                    <span class="update-time">1 小时前</span>
+                </div>
+                <div class="update-item">
+                    <div class="update-info">
+                        <span class="update-name">午夜街头竞速</span>
+                        <span class="update-badge">预告</span>
+                        <span class="update-desc">今晚 23:00 准时开启，新增两个检查点</span>
+                    </div>
+                    <span class="update-time">2 小时前</span>
+                </div>
+                <div class="update-item">
+                    <div class="update-info">
+                        <span class="update-name">摩托越野挑战赛</span>
+                        <span class="update-badge">热门</span>
+                        <span class="update-desc">参与人数突破 1200，社区路线攻略已更新</span>
+                    </div>
+                    <span class="update-time">3 小时前</span>
+                </div>
+                <div class="update-item">
+                    <div class="update-info">
+                        <span class="update-name">精准射击竞速</span>
+                        <span class="update-badge">即将结束</span>
+                        <span class="update-desc">剩余 1 小时 20 分钟，抓紧最后机会冲榜</span>
+                    </div>
+                    <span class="update-time">4 小时前</span>
+                </div>
+                <div class="update-item">
+                    <div class="update-info">
+                        <span class="update-name">沙漠越野拉力</span>
+                        <span class="update-badge">新奖励</span>
+                        <span class="update-desc">完成挑战可领取限定涂装，截止今晚 24 点</span>
+                    </div>
+                    <span class="update-time">5 小时前</span>
+                </div>
+                <div class="update-item">
+                    <div class="update-info">
+                        <span class="update-name">特技跳台大乱斗</span>
+                        <span class="update-badge">趣味</span>
+                        <span class="update-desc">社区最佳特技视频点赞数突破 5000</span>
+                    </div>
+                    <span class="update-time">6 小时前</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 深度解析正文 -->
+        <section class="section" id="guide">
+            <div class="deep-dive">
+                <h2>r星每日大赛聚集地：从参与到精通的深度解析</h2>
+                <p><strong>r星每日大赛聚集地</strong>并不是一个简单的赛事列表页，它更像是一个为竞速与挑战爱好者准备的每日内容中枢。每天轮换的挑战、限时竞速、社区自制赛事，构成了这个聚集地的核心内容。对于刚接触的玩家来说，这里提供了清晰的分类和难度提示；对于老手而言，路线攻略、载具调校和社区讨论才是真正有吸引力的部分。</p>
+                <p>从内容类型来看，r星每日大赛聚集地主要覆盖三大方向：<strong>每日竞速</strong>、<strong>限时挑战</strong>和<strong>社区大赛</strong>。每日竞速通常以固定路线为主，强调载具性能和驾驶稳定性；限时挑战则会加入射击、特技或特殊载具等变量，考验综合能力；社区大赛则更加自由，玩家可以自制赛道并设定规则，风格多样。三种类型相互补充，让每天都有新的内容可以探索。</p>
+                <p>在聚集地中，热门挑战的推荐逻辑并不是单纯按热度排序，而是结合了当前参与人数、剩余时间、难度系数和社区评价。例如“洛圣都环城高速赛”因为路线经典、奖励丰厚，几乎每天都会出现在推荐前列；而“特技跳台大乱斗”则更受休闲玩家和内容创作者的欢迎。这种分层推荐让不同口味的玩家都能快速找到适合自己的赛事。</p>
+                <p>关于<strong>载具与路线</strong>，r星每日大赛聚集地的深度内容通常会给出具体建议。跑车适合高速弯道较多的赛道，越野车在沙地和跳跃点更有优势，摩托车则需要更高的操控技巧但往往能获得额外的技巧分。路线方面，捷径并不总是最优解，有时候稳定的走线比冒险穿行更节省时间。聚集地中的攻略模块会标注每个赛道的难点路段和推荐载具类型，帮助玩家在参与前做好判断。</p>
+                <p>社区讨论是r星每日大赛聚集地的重要组成部分。玩家会在评论和社区板块分享自己的最快圈速、路线选择、载具改装方案，甚至是对某条赛道难度的吐槽。这种真实的互动氛围让聚集地不只是一个信息页面，更像是一个围绕每日大赛形成的轻社区。新玩家可以通过这些讨论快速了解当前版本的强势载具，老玩家也能从中发现新的挑战思路。</p>
+                <p>如果你是第一次访问r星每日大赛聚集地，建议先从“每日竞速”分类入手，选择标注为“入门”或“适中”的赛事，熟悉路线和载具手感。积累一定经验后，再尝试限时挑战和社区大赛。聚集地的FAQ和指南模块也值得花时间阅读，里面总结了常见问题和避坑建议。对于想要持续提升的玩家，关注排行榜和社区精选路线是很好的进阶方式。</p>
+            </div>
+        </section>
+
+        <!-- 体验指南 -->
+        <section class="section" id="experience">
+            <div class="section-header">
+                <h2 class="section-title">体验指南</h2>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;">
+                <div style="background:var(--surface);border-radius:var(--radius-sm);padding:24px 20px;border:1px solid var(--border);">
+                    <div style="font-size:1.8rem;margin-bottom:8px;">🧭</div>
+                    <h3 style="font-weight:700;margin-bottom:8px;color:#0b2e2a;">分类清晰</h3>
+                    <p style="font-size:0.9rem;color:var(--text-muted);">竞速、挑战、社区赛事分区明确，快速定位感兴趣的内容。</p>
+                </div>
+                <div style="background:var(--surface);border-radius:var(--radius-sm);padding:24px 20px;border:1px solid var(--border);">
+                    <div style="font-size:1.8rem;margin-bottom:8px;">📱</div>
+                    <h3 style="font-weight:700;margin-bottom:8px;color:#0b2e2a;">移动端友好</h3>
+                    <p style="font-size:0.9rem;color:var(--text-muted);">响应式布局，手机浏览同样流畅，随时查看剩余时间和热度。</p>
+                </div>
+                <div style="background:var(--surface);border-radius:var(--radius-sm);padding:24px 20px;border:1px solid var(--border);">
+                    <div style="font-size:1.8rem;margin-bottom:8px;">🔖</div>
+                    <h3 style="font-weight:700;margin-bottom:8px;color:#0b2e2a;">适合收藏</h3>
+                    <p style="font-size:0.9rem;color:var(--text-muted);">每日更新动态，收藏聚集地即可追踪当天赛事，不错过限时挑战。</p>
+                </div>
+                <div style="background:var(--surface);border-radius:var(--radius-sm);padding:24px 20px;border:1px solid var(--border);">
+                    <div style="font-size:1.8rem;margin-bottom:8px;">🔗</div>
+                    <h3 style="font-weight:700;margin-bottom:8px;color:#0b2e2a;">推荐扩展</h3>
+                    <p style="font-size:0.9rem;color:var(--text-muted);">相关推荐串联起同类赛事和路线攻略，方便延伸浏览。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section" id="faq">
+            <div class="section-header">
+                <h2 class="section-title">常见问题</h2>
+            </div>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary class="faq-question">r星每日大赛聚集地主要提供什么内容？</summary>
+                    <div class="faq-answer">聚集地主要汇总每日轮换的竞速赛事、限时挑战和社区自制大赛，同时提供路线建议、载具调校参考、玩家评论和最新动态。你可以把它当作每日大赛的信息入口，快速了解当天有哪些值得参与的赛事，以及社区里正在讨论的热门路线。</div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">新手应该从哪个分类开始参与？</summary>
+                    <div class="faq-answer">建议从“每日竞速”中标注为“入门”或“适中”的赛事开始。这类赛事路线相对简单，对载具要求不高，适合熟悉操作和比赛节奏。等积累一定经验后，再尝试限时挑战和社区大赛。聚集地的攻略模块也会给出每条赛道的难点提示，可以作为参考。</div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">社区大赛和每日挑战有什么区别？</summary>
+                    <div class="faq-answer">每日挑战通常由系统轮换，规则和路线相对固定，奖励也比较标准化。社区大赛则由玩家自制赛道和规则，风格更加多样，参与时间和奖励设置也更灵活。社区大赛的难度差异较大，建议先查看赛事描述和玩家评论再决定是否参与。</div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">聚集地中的热度数据是怎么来的？</summary>
+                    <div class="faq-answer">热度数据综合了当前参与人数、社区讨论量、剩余时间和评分等因素，用来帮助玩家判断赛事的受欢迎程度。热度高不代表难度适合所有人，建议结合赛事标签和描述来选择。部分限时挑战热度很高，但剩余时间较短，参与前需要确认时间是否充足。</div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">如何快速提升竞速成绩？</summary>
+                    <div class="faq-answer">提升成绩的关键在于路线熟悉度和载具调校。建议先完整跑几遍赛道，记住弯道和捷径位置；然后根据赛道特点调整载具，比如高速赛道优先提升极速和稳定性，多弯赛道则更看重操控和刹车。聚集地的深度解析和社区讨论中有不少实战路线分享，可以参考。</div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">聚集地的更新频率是怎样的？</summary>
+                    <div class="faq-answer">每日大赛相关内容通常每天更新，包括热门挑战推荐、最新动态和社区讨论。社区大赛的更新取决于玩家自制赛事的发布频率，一般晚间和周末会有更多新赛事出现。建议收藏聚集地并定期查看“最新更新”板块，以免错过限时内容。</div>
+                </details>
+            </div>
+        </section>
+
+        <!-- 用户评论 -->
+        <section class="section" id="comments">
+            <div class="section-header">
+                <h2 class="section-title">玩家评论</h2>
+            </div>
+            <div class="comment-grid">
+                <div class="comment-card"><div class="comment-head"><div class="avatar">A</div><span class="nickname">北岸车神</span><span class="comment-time">2天前</span></div><div class="comment-text">环城高速的反向路线真的刺激，今天跑了三次才进2分20，推荐用改装跑车，隧道后的急弯一定要提前刹车。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">B</div><span class="nickname">山道小旋风</span><span class="comment-time">3天前</span></div><div class="comment-text">社区的山道之王每晚都参加，弯道太密集了，刹车点稍微晚一点就撞墙。不过前10奖励挺良心。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">C</div><span class="nickname">沙漠之鹰</span><span class="comment-time">1天前</span></div><div class="comment-text">沙漠越野拉力建议带维修工具，我中途爆胎了硬是开回终点，差点超时。路线选择比速度更重要。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">D</div><span class="nickname">夜跑爱好者</span><span class="comment-time">5天前</span></div><div class="comment-text">午夜街头竞速车流有点多，运气成分不小。不过整体氛围很好，社区里大家都在分享走线。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">E</div><span class="nickname">摩托党老张</span><span class="comment-time">2天前</span></div><div class="comment-text">摩托越野挑战赛的跳跃点太爽了，空中姿态控制好了分数很高。就是落地不稳容易摔，还在练。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">F</div><span class="nickname">特技狂人</span><span class="comment-time">4天前</span></div><div class="comment-text">特技跳台大乱斗很适合放松，不用太在意排名，随便飞飞也很开心。社区里的特技视频质量越来越高。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">G</div><span class="nickname">精准射手</span><span class="comment-time">1天前</span></div><div class="comment-text">精准射击竞速的靶点位置有点刁钻，第一次跑手忙脚乱。建议先把武器精准度升满再来。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">H</div><span class="nickname">刚入坑的小刘</span><span class="comment-time">6天前</span></div><div class="comment-text">刚开始玩每日大赛，聚集地的分类帮了大忙。先从入门赛开始，现在勉强能完赛了。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">I</div><span class="nickname">老司机阿凯</span><span class="comment-time">3天前</span></div><div class="comment-text">这一期的竞速整体难度适中，就是限时挑战时间太短了，上班族很难赶上。希望多出点夜间场次。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">J</div><span class="nickname">社区观察员</span><span class="comment-time">5天前</span></div><div class="comment-text">社区自制赛道的质量参差不齐，有些路线设计得很用心，有些就是堆障碍。建议加个评分筛选。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">K</div><span class="nickname">弯道之王</span><span class="comment-time">2天前</span></div><div class="comment-text">山道之王前10真的难，大神太多了。不过跑多了确实对刹车控制有提升，值回票价。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">L</div><span class="nickname">休闲玩家小陈</span><span class="comment-time">7天前</span></div><div class="comment-text">聚集地的推荐挺准的，每天看一眼就知道玩什么。希望后续能加上赛事提醒功能。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">M</div><span class="nickname">氮气加速</span><span class="comment-time">1天前</span></div><div class="comment-text">环城高速用氮气要留到最后直道，前面用了后面就追不回来了。个人经验，供参考。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">N</div><span class="nickname">越野老炮</span><span class="comment-time">4天前</span></div><div class="comment-text">沙漠拉力那个限定涂装拿到了，感觉比想象中容易。路线选对的话时间很充裕。</div></div>
+                <div class="comment-card"><div class="comment-head"><div class="avatar">O</div><span class="nickname">夜猫子</span><span class="comment-time">3天前</span></div><div class="comment-text">午夜街头竞速的检查点改版后更合理了，之前有个点太隐蔽容易漏。这次更新好评。</div></div>
+            </div>
+        </section>
+
+        <!-- 相关资讯 -->
+        <section class="section" id="news">
+            <div class="section-header">
+                <h2 class="section-title">相关资讯</h2>
+            </div>
+            <div class="news-grid">
+                <a href="/#news" class="news-card">
+                    <div class="news-date">2026-11-07</div>
+                    <div class="news-title">洛圣都环城高速赛反向路线今日上线</div>
+                    <div class="news-summary">新增反向路线，难度提升明显，奖励同步翻倍。社区最快圈速已刷新至2:16.8，多位玩家分享了弯道处理心得。</div>
+                </a>
+                <a href="/#news" class="news-card">
+                    <div class="news-date">2026-11-06</div>
+                    <div class="news-title">社区山道之王报名人数突破新高</div>
+                    <div class="news-summary">今晚20:00开赛的社区自制赛已有64人报名，前10名可获额外奖励。路线难度较高，建议提前熟悉刹车点。</div>
+                </a>
+                <a href="/#news" class="news-card">
+                    <div class="news-date">2026-11-05</div>
+                    <div class="news-title">沙漠越野拉力限定涂装获取攻略</div>
+                    <div class="news-summary">完成挑战即可领取限定涂装，截止今晚24点。推荐使用高耐久越野车并携带维修工具，避开松软沙地路段。</div>
+                </a>
+                <a href="/#news" class="news-card">
+                    <div class="news-date">2026-11-05</div>
+                    <div class="news-title">精准射击竞速新增靶点位置调整</div>
+                    <div class="news-summary">本次更新调整了三个靶点的位置，整体难度略有提升。建议优先升级武器精准度，减少停车瞄准时间。</div>
+                </a>
+                <a href="/#news" class="news-card">
+                    <div class="news-date">2026-11-04</div>
+                    <div class="news-title">午夜街头竞速检查点优化说明</div>
+                    <div class="news-summary">新增两个检查点，修复了此前部分玩家反馈的路线指引问题。今晚23:00准时开启，社区讨论热度持续上升。</div>
+                </a>
+                <a href="/#news" class="news-card">
+                    <div class="news-date">2026-11-03</div>
+                    <div class="news-title">特技跳台大乱斗社区视频热度攀升</div>
+                    <div class="news-summary">社区最佳特技视频点赞数突破5000，多个高难度连跳片段引发讨论。该挑战适合放松练习和内容创作。</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 订阅引导 (简化) -->
+        <section class="section" id="subscribe" style="background:var(--primary-light);border-radius:var(--radius);padding:40px 32px;text-align:center;">
+            <h2 style="font-size:1.6rem;font-weight:700;color:#0b2e2a;margin-bottom:12px;">订阅每日大赛提醒</h2>
+            <p style="color:#2c4a46;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto;">留下邮箱，每天第一时间获取r星每日大赛聚集地的最新赛程与挑战推荐。</p>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:480px;margin:0 auto;">
+                <input type="email" placeholder="你的邮箱地址" style="flex:1;min-width:200px;padding:12px 18px;border:1px solid var(--border);border-radius:999px;font-size:0.95rem;outline:none;">
+                <button class="btn btn-primary" style="border:none;">立即订阅</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <div class="logo" style="color:#fff;font-size:1.3rem;">
+                        <span class="logo-badge" style="background:#fff;color:#0d9488;">R</span>
+                        <span>r星每日大赛聚集地</span>
+                    </div>
+                    <p>每日汇总竞速赛事、限时挑战与社区大赛，提供路线攻略、载具建议和玩家讨论。内容仅供信息参考，与官方无关。</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>赛事</h4>
+                        <ul>
+                            <li><a href="/#daily-challenge">每日竞速</a></li>
+                            <li><a href="/#daily-challenge">限时挑战</a></li>
+                            <li><a href="/#community">社区大赛</a></li>
+                            <li><a href="/#ranking">排行榜</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>指南</h4>
+                        <ul>
+                            <li><a href="/#guide">路线攻略</a></li>
+                            <li><a href="/#guide">载具调校</a></li>
+                            <li><a href="/#faq">常见问题</a></li>
+                            <li><a href="/#experience">体验指南</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>互动</h4>
+                        <ul>
+                            <li><a href="/#comments">玩家评论</a></li>
+                            <li><a href="/#news">赛事资讯</a></li>
+                            <li><a href="/#subscribe">订阅提醒</a></li>
+                            <li><a href="/#home">返回首页</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 r星每日大赛聚集地 · 内容仅供学习与交流</span>
+                <span>友情链接：<a href="/#home" style="color:#8bb5ae;text-decoration:none;">竞速社区</a> · <a href="/#home" style="color:#8bb5ae;text-decoration:none;">挑战者联盟</a> · <a href="/#home" style="color:#8bb5ae;text-decoration:none;">载具调校站</a></span>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</body>
+                  </html>
